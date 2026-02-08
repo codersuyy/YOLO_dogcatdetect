@@ -1,42 +1,42 @@
 # 🐶🐱 YOLO Dog & Cat Classification
 
-Dự án phân loại ảnh chó và mèo sử dụng **YOLOv8** (Ultralytics) - mô hình deep learning hiện đại cho bài toán image classification.
+A dog and cat image classification project using **YOLOv8** (Ultralytics) - a state-of-the-art deep learning model for image classification tasks.
 
-## 📋 Mục lục
+## 📋 Table of Contents
 
-- [Giới thiệu](#giới-thiệu)
-- [Yêu cầu hệ thống](#yêu-cầu-hệ-thống)
-- [Cài đặt](#cài-đặt)
-- [Cấu trúc dữ liệu](#cấu-trúc-dữ-liệu)
-- [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
-- [Kết quả](#kết-quả)
+- [Introduction](#introduction)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Dataset Structure](#dataset-structure)
+- [Usage Guide](#usage-guide)
+- [Results](#results)
 - [License](#license)
 
-## 🎯 Giới thiệu
+## 🎯 Introduction
 
-Dự án này sử dụng **YOLOv8n-cls** (YOLO version 8 nano classification) để huấn luyện mô hình phân loại ảnh chó và mèo. Mô hình được thiết kế để chạy trên **Google Colab** với GPU miễn phí.
+This project uses **YOLOv8n-cls** (YOLO version 8 nano classification) to train an image classification model for dogs and cats. The model is designed to run on **Google Colab** with free GPU access.
 
-### Các tính năng chính:
-- ✅ Huấn luyện mô hình YOLOv8 cho phân loại ảnh
-- ✅ Đánh giá mô hình với các metrics: Accuracy, Precision, Recall, F1-Score
-- ✅ Hiển thị Confusion Matrix và các ảnh dự đoán sai
-- ✅ Dự đoán trên ảnh mới
+### Key Features:
+- ✅ Train YOLOv8 model for image classification
+- ✅ Model evaluation with metrics: Accuracy, Precision, Recall, F1-Score
+- ✅ Display Confusion Matrix and misclassified images
+- ✅ Predict on new images
 
-## 💻 Yêu cầu hệ thống
+## 💻 System Requirements
 
 - Python 3.8+
-- Google Colab (khuyến nghị) hoặc máy tính có GPU
-- Google Drive để lưu trữ dataset và mô hình
+- Google Colab (recommended) or a computer with GPU
+- Google Drive for storing dataset and model
 
-### Thư viện cần thiết:
-- `ultralytics` - Framework YOLOv8
+### Required Libraries:
+- `ultralytics` - YOLOv8 Framework
 - `torch` - PyTorch deep learning
-- `scikit-learn` - Đánh giá mô hình
+- `scikit-learn` - Model evaluation
 - `matplotlib` - Visualization
-- `Pillow` - Xử lý ảnh
-- `gdown` - Tải file từ Google Drive
+- `Pillow` - Image processing
+- `gdown` - Download files from Google Drive
 
-## 🚀 Cài đặt
+## 🚀 Installation
 
 ### 1. Clone repository
 ```bash
@@ -44,19 +44,19 @@ git clone https://github.com/yourusername/YOLO_dogcatdetect.git
 cd YOLO_dogcatdetect
 ```
 
-### 2. Cài đặt dependencies
+### 2. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Chạy trên Google Colab
-1. Upload file `dogcatdectect.ipynb` lên Google Colab
-2. Kết nối với GPU Runtime: `Runtime` → `Change runtime type` → `GPU`
-3. Chạy từng cell theo thứ tự
+### 3. Run on Google Colab
+1. Upload `dogcatdectect.ipynb` to Google Colab
+2. Connect to GPU Runtime: `Runtime` → `Change runtime type` → `GPU`
+3. Run each cell in order
 
-## 📁 Cấu trúc dữ liệu
+## 📁 Dataset Structure
 
-Dataset cần được tổ chức theo cấu trúc sau:
+The dataset should be organized as follows:
 
 ```
 CatandDogDataset/
@@ -77,15 +77,15 @@ CatandDogDataset/
     └── dogs/
 ```
 
-## 📖 Hướng dẫn sử dụng
+## 📖 Usage Guide
 
-### Bước 1: Kết nối Google Drive
+### Step 1: Connect Google Drive
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-### Bước 2: Huấn luyện mô hình
+### Step 2: Train the Model
 ```python
 from ultralytics import YOLO
 
@@ -98,13 +98,13 @@ model.train(
 )
 ```
 
-### Bước 3: Đánh giá mô hình
+### Step 3: Evaluate the Model
 ```python
 model = YOLO("runs/classify/train/weights/best.pt")
 results = model(test_images)
 ```
 
-### Bước 4: Dự đoán trên ảnh mới
+### Step 4: Predict on New Images
 ```python
 from PIL import Image
 
@@ -112,58 +112,58 @@ img_path = "path/to/your/image.jpg"
 result = model(img_path)
 label = result[0].names[result[0].probs.top1]
 confidence = result[0].probs.top1conf
-print(f"Dự đoán: {label} ({confidence*100:.2f}%)")
+print(f"Prediction: {label} ({confidence*100:.2f}%)")
 ```
 
-## 📊 Kết quả
+## 📊 Results
 
-Mô hình được đánh giá với các metrics sau:
+The model is evaluated with the following metrics:
 
-| Metric | Giá trị |
-|--------|---------|
+| Metric | Value |
+|--------|-------|
 | Accuracy | ~95% |
 | Precision | ~95% |
 | Recall | ~95% |
 | F1-Score | ~95% |
 
-*Kết quả có thể thay đổi tùy thuộc vào dataset và số epochs huấn luyện.*
+*Results may vary depending on the dataset and number of training epochs.*
 
-## 🔧 Cấu hình huấn luyện
+## 🔧 Training Configuration
 
-| Parameter | Giá trị | Mô tả |
-|-----------|---------|-------|
+| Parameter | Value | Description |
+|-----------|-------|-------------|
 | Model | YOLOv8n-cls | Nano classification model |
-| Epochs | 10 | Số vòng huấn luyện |
-| Image Size | 224x224 | Kích thước ảnh đầu vào |
-| Batch Size | 16 | Số ảnh mỗi batch |
-| Workers | 2 | Số luồng xử lý dữ liệu |
+| Epochs | 10 | Number of training epochs |
+| Image Size | 224x224 | Input image size |
+| Batch Size | 16 | Images per batch |
+| Workers | 2 | Number of data loading workers |
 
-## 📂 Cấu trúc project
+## 📂 Project Structure
 
 ```
 YOLO_dogcatdetect/
-├── dogcatdectect.ipynb    # Notebook chính
-├── README.md              # Tài liệu hướng dẫn
+├── dogcatdectect.ipynb    # Main notebook
+├── README.md              # Documentation
 ├── requirements.txt       # Dependencies
-├── LICENSE               # Giấy phép MIT
+├── LICENSE               # MIT License
 └── .gitignore            # Ignore files
 ```
 
-## 🤝 Đóng góp
+## 🤝 Contributing
 
-Mọi đóng góp đều được hoan nghênh! Vui lòng:
+All contributions are welcome! Please:
 
-1. Fork repository
-2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Tạo Pull Request
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Create a Pull Request
 
 ## 📄 License
 
-Dự án này được phân phối dưới giấy phép MIT. Xem file [LICENSE](LICENSE) để biết thêm chi tiết.
+This project is distributed under the MIT License. See [LICENSE](LICENSE) file for more details.
 
-## 👤 Tác giả
+## 👤 Author
 
 - **Vuong** - [GitHub](https://github.com/codersuyy)
 
@@ -175,4 +175,4 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file [LICENSE]
 
 ---
 
-⭐ Nếu thấy hữu ích, hãy cho project một star nhé!
+⭐ If you find this helpful, please give this project a star!
